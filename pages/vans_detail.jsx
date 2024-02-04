@@ -3,7 +3,7 @@ import React from "react";
 export default function vansDetail () {
     return (
         <div>
-            van detail pages
+           <h1>Vans Detail page goes here</h1>
         </div>
     )
 }
