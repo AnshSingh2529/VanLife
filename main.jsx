@@ -5,6 +5,7 @@ import Home from "./pages/Home";
 import About from "./pages/About";
 import "./server"; 
 import VansPage from './pages/vans_page';
+import VansDetail from './pages/vans_detail';
 
 function App() {
   return (
@@ -13,14 +14,14 @@ function App() {
         <Link className="site-logo" to="/">#VanLife</Link>
         <nav>
           <Link to="/about">About</Link>
-          <Link to="/about/vans">Vans</Link>
+          <Link to="/vans">Vans</Link>
         </nav>
       </header>
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/about/vans" element={<VansPage />} />
-        <Route path="/about/vans/:id" element={<vansDetail />} />
+        <Route path="/vans" element={<VansPage />} />
+        <Route path="/vans/:id" element={<VansDetail />} />
       </Routes>
     </BrowserRouter>
   )
