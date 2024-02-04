@@ -22,6 +22,7 @@ export default function VansPage (){
 
     return (
         <div className="van-list-container">
+            <h1>Explore our Vans options</h1>
             <div className="van-list">
                 {vanElements}
             </div>
