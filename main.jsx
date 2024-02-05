@@ -4,30 +4,34 @@ import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import "./server"; 
-import VansPage from './pages/vans_page';
-import VansDetail from './pages/vans_detail';
+import VansPage from './van/vans_page';
+import VansDetail from './van/vans_detail';
 import Layout from './component/Layout';
-import Host from './Hosts/Host';
-import Dashboard from './Hosts/DashBoard';
-import Reviews from './Hosts/Reviews';
-import Income from './Hosts/Income';
+import Dashboard from './pages/Hosts/DashBoard';
+import Reviews from './pages/Hosts/Reviews';
+import Income from './pages/Hosts/Income';
+import HostLayout from './component/HostLayout';
 
 function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-        <Route element={<Layout />}>
+        <Route path="/" element={<Layout />}>
 
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/vans" element={<VansPage />} />
-        <Route path="/vans/:id" element={<VansDetail />} />          //here "/:id" means something going to replace it some id,name,or anything.
-        <Route path='/host/dashboard' element={<Dashboard />}/>
-        <Route path='/host/reviews' element={<Reviews />}/>
-        <Route path='/host/income' element={<Income />}/>
-            
+        <Route index element={<Home />} />
+        <Route path="about" element={<About />} />
+        <Route path="vans" element={<VansPage />} />
+        <Route path="vans/:id" element={<VansDetail />} />          //here "/:id" means something going to replace it some id,name,or anything.
 
+        <Route path='host' element={<HostLayout />}>
+
+          <Route index element={<Dashboard />}/>
+          <Route path='income' element={<Income />}/>
+          <Route path='reviews'  element={<Reviews />}/>
+
+        </Route>
+        
         </Route>
       </Routes>
     </BrowserRouter>
