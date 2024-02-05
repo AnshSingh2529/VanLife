@@ -21,7 +21,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/vans" element={<VansPage />} />
-        <Route path="/vans/:id" element={<VansDetail />} />
+        <Route path="/vans/:id" element={<VansDetail />} />          //here "/:id" means something going to replace it some id,name,or anything.
       </Routes>
     </BrowserRouter>
   )
