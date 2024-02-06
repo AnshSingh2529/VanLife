@@ -23,3 +23,9 @@ children routes. It renders the matching child route's
 of the parent route matches. It gives us a chance to render
 an element inside the parent's <Outlet /> at the same path
 as the parent route.`
+
+5. What is the difference between Link and NavLink ?
+
+`So, the difference is that in <Link /> there is a prop called '(to='')' which is used to give you the URL of the page and it does not take any CSS property in it but,`
+
+`In <NavLink /> it allow a (isActive) property in className={ (isActive) => {condition}} or style={(isActive) => {condition}} by Which you can add styling to your Link or path described like, About,Home,Contact,etc.`
