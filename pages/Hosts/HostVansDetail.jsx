@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { useParams,Link } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useParams,Link, Outlet, NavLink } from 'react-router-dom';
 
 function HostVansDetail() {
   const [vandetail, UpdatevanDetail] = useState(null);
@@ -12,6 +12,12 @@ function HostVansDetail() {
 
   if(!vandetail){
     return <h1>Loading...</h1>
+  }
+
+  const activeStyle = {
+        fontWeight: "bold",
+        textDecoration: "underline",
+        color: "#161616"
   }
 
   return (
@@ -36,9 +42,23 @@ function HostVansDetail() {
             </div>
         </div>
         <div>
-        <Link to="/vans/{params.id}/pricing">Pricing</Link>
-        <Link to="/vans/{params.id}/photos">Photos</Link>
-        <Link to="/vans/{params.id}/info">Info</Link>
+            <nav className="host-van-detail-nav">
+
+             <NavLink 
+             to="." 
+             end 
+             style={ ({isActive}) => isActive ? activeStyle : null}>Details</NavLink> 
+
+             <NavLink 
+             to="pricing" 
+             style={ ({isActive}) => isActive ? activeStyle : null}>Pricing</NavLink>
+
+             <NavLink 
+             to="photos" 
+             style={ ({isActive}) => isActive ? activeStyle : null}>Photos</NavLink>  
+
+            </nav>
+            <Outlet context={ {vandetail} }/>
         </div>
     </section>
    
