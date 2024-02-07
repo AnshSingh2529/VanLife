@@ -23,8 +23,8 @@ function HostVansDetail() {
   return (
     <section>
         <Link
-                to=".."
-                relative="path"
+                to="../vans"
+                // relative='path'         no need if you want direct to visit your main nested parent.
                 className="back-button"
             >&larr; <span>Back to all vans</span></Link>
         <div className="host-van-detail-layout-container">
