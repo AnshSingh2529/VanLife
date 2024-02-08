@@ -1,8 +1,14 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 export default function VansPage (){
     const [vans , setVans] = useState([]);
+    const [searchParams,setSearchParams] = useSearchParams();
+    const typeFilter = searchParams.get("type");
+
+    const displayVans = typeFilter
+    ? vans.filter(van => van.type === typeFilter) 
+    : vans ;
      
     useEffect( () => {
         fetch("/api/vans")
@@ -10,7 +16,7 @@ export default function VansPage (){
         .then( data => setVans(data.vans))
     },[])
 
-    const vanElements = vans.map( van => (
+    const vanElements = displayVans.map( van => (
         <div key={van.id} className="van-tile">
             <Link 
 
@@ -28,9 +34,66 @@ export default function VansPage (){
         </div>
     ))
 
+    function generatevanPath (key, value) {
+        const sp = new URLSearchParams(searchParams);
+
+        if(value === null){
+            sp.delete(key)
+        } else {
+            sp.set(key, value);
+        }
+        return `?${sp.toString()}`
+    }
+
     return (
         <div className="van-list-container">
             <h1>Explore our Vans options</h1>
+             <div className="van-list-filter-buttons">
+                <Link 
+                    to={generatevanPath ("type", "simple")}
+                    className="van-type simple"
+                >Simple</Link>
+                <Link 
+                    to={generatevanPath ("type", "luxury")}
+                    className="van-type luxury"
+                >Luxury</Link>
+                <Link 
+                    to={generatevanPath ("type", "rugged")}
+                    className="van-type rugged"
+                >Rugged</Link>
+                <Link 
+                    to="."
+                    className="van-type clear-filters"
+                >Clear filter</Link>
+            </div>
+
+
+            {/* <div className="van-list-filter-buttons">
+                <Link 
+                    to="?type=simple"
+                    className="van-type simple"
+                >Simple</Link>
+                <Link 
+                    to="?type=luxury"
+                    className="van-type luxury"
+                >Luxury</Link>
+                <Link 
+                    to="?type=rugged"
+                    className="van-type rugged"
+                >Rugged</Link>
+                <Link 
+                    to="."
+                    className="van-type clear-filters"
+                >Clear filter</Link>
+            </div> */}
+            
+            {/* <div className="van-list-filter-buttons">
+                <button className="van-type simple"  onClick={ () => setSearchParams({type:"simple"})}>Simple</button>
+                <button  className="van-type rugged" onClick={ () => setSearchParams({type:"rugged"})}>Rugged</button>
+                <button  className="van-type luxury"  onClick={ () => setSearchParams({type:"luxury"})}>Luxury</button>
+                <button   onClick={ () => setSearchParams({})}>Clear</button>
+            </div> */}
+
             <div className="van-list">
                 {vanElements}
             </div>
