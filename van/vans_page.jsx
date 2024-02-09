@@ -20,7 +20,7 @@ export default function VansPage (){
         <div key={van.id} className="van-tile">
             <Link 
 
-            to={`/vans/${van.id}`} 
+            to={van.id}   state={ {search : `?${searchParams.toString()}`, type: typeFilter} }
             aria-label={`view detail for ${van.name} price at ${van.price} per day`
 
             }>
@@ -34,38 +34,60 @@ export default function VansPage (){
         </div>
     ))
 
-    function generatevanPath (key, value) {
-        const sp = new URLSearchParams(searchParams);
+    // function generatevanPath (key, value) {
+    //     const sp = new URLSearchParams(searchParams);
 
-        if(value === null){
-            sp.delete(key)
-        } else {
-            sp.set(key, value);
-        }
-        return `?${sp.toString()}`
+    //     if(value === null){
+    //         sp.delete(key)
+    //     } else {
+    //         sp.set(key, value);
+    //     }
+    //     return `?${sp.toString()}`
+    // }
+
+    function HandleFilter (key, value){
+        setSearchParams( (prevParams) => {
+            if(value === null){
+                prevParams.delete(key);
+            } else {
+                prevParams.set(key, value);
+            }
+        })
     }
 
     return (
         <div className="van-list-container">
             <h1>Explore our Vans options</h1>
-             <div className="van-list-filter-buttons">
+            <div className="van-list-filter-buttons">
+                <button className={`van-type simple ${typeFilter === "simple" ? "selected" : "" }`}  onClick={ () => HandleFilter("type", "simple")}>Simple</button>
+                <button  className={`van-type rugged ${typeFilter === "rugged" ? "selected" : "" }`} onClick={ () => HandleFilter("type", "rugged")}>Rugged</button>
+                <button  className={`van-type luxury ${typeFilter === "luxury" ? "selected" : "" }`}  onClick={ () => HandleFilter("type", "luxury")}>Luxury</button>
+                { typeFilter ?
+                    (<button   onClick={ () => HandleFilter("type", null)}>Clear</button>)
+                : null}
+            </div>
+
+
+             {/* <div className="van-list-filter-buttons">
                 <Link 
                     to={generatevanPath ("type", "simple")}
-                    className="van-type simple"
+                    className={`van-type simple ${typeFilter === "simple" ? "selected" : ""}`}
                 >Simple</Link>
                 <Link 
                     to={generatevanPath ("type", "luxury")}
-                    className="van-type luxury"
+                    className={`van-type luxury ${typeFilter === "luxury" ? "selected" : ""}`}
                 >Luxury</Link>
                 <Link 
                     to={generatevanPath ("type", "rugged")}
-                    className="van-type rugged"
+                    className={`van-type rugged ${typeFilter === "rugged" ? "selected" : ""}`}
                 >Rugged</Link>
-                <Link 
+               { typeFilter ?
+               (<Link 
                     to="."
                     className="van-type clear-filters"
-                >Clear filter</Link>
-            </div>
+                >Clear filter</Link>)
+            : null }
+            </div> */}
 
 
             {/* <div className="van-list-filter-buttons">
@@ -76,7 +98,7 @@ export default function VansPage (){
                 <Link 
                     to="?type=luxury"
                     className="van-type luxury"
-                >Luxury</Link>
+                >Luxury</Link>  
                 <Link 
                     to="?type=rugged"
                     className="van-type rugged"
