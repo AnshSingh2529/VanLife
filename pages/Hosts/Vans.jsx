@@ -1,14 +1,36 @@
-import React from "react"
-import { Link, useSearchParams } from "react-router-dom"
+import React, { useState,useEffect } from "react"
+
+import { Link } from "react-router-dom"
+import getHostvans from '/van/api';
 
 export default function HostVans() {
-    const [vans, setVans] = React.useState([])
+    const [vans, setHostVans] = React.useState([]);
+    const [loader, setloader] = useState(false);
+    const [error, setError] = useState(null);
 
-    React.useEffect(() => {
-        fetch("/api/host/vans")
-            .then(res => res.json())
-            .then(data => setVans(data.vans))
+
+    useEffect(() => {
+        setloader(true);
+      async function HostLoader (){
+       try {
+        const data = await getHostvans();
+        setHostVans(data);
+       } catch (err) {
+        setError(err)
+       } finally {
+        setloader(false);
+       }
+      }
+
+      HostLoader();
     }, [])
+
+    if(loader){
+        return <div className="loader"></div>
+    }
+    if(error) {
+        return <h1>Sorry! {error.message}</h1>
+    }
 
     const hostVansEls = vans.map(van => (
         <Link
@@ -30,16 +52,10 @@ export default function HostVans() {
         <section>
             <h1 className="host-vans-title">Your listed vans</h1>
             <div className="host-vans-list">
-                {
-                    vans.length > 0 ? (
                         <section>
                             {hostVansEls}
                         </section>
-
-                    ) : (
-                            <h2>Loading...</h2>
-                        )
-                }
+                
             </div>
         </section>
     )

@@ -1,20 +1,34 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
+import getVans from './api';
 export default function VansPage (){
     const [vans , setVans] = useState([]);
     const [searchParams,setSearchParams] = useSearchParams();
+    const [laoding, setLoading] = useState(false);
+    const [error, setError] = React.useState(null)
+
     const typeFilter = searchParams.get("type");
 
     const displayVans = typeFilter
     ? vans.filter(van => van.type === typeFilter) 
     : vans ;
-     
-    useEffect( () => {
-        fetch("/api/vans")
-        .then( res => res.json())
-        .then( data => setVans(data.vans))
-    },[])
+
+    useEffect(() => {
+        async function loadVans() {
+            setLoading(true)
+            try {
+                const data = await getVans()
+                setVans(data)
+            } catch (err) {
+                setError(err)
+            } finally {
+                setLoading(false)
+            }
+        }
+
+        loadVans()
+    }, [])
 
     const vanElements = displayVans.map( van => (
         <div key={van.id} className="van-tile">
@@ -53,6 +67,15 @@ export default function VansPage (){
                 prevParams.set(key, value);
             }
         })
+    }
+
+    if(laoding){
+        return <div className="loader"></div>
+                
+    }
+
+    if (error) {
+        return <h1>There was an error: {error.message}</h1>
     }
 
     return (
