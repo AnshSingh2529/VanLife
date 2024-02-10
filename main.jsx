@@ -1,10 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { createBrowserRouter,createRoutesFromElements, Route, Link, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  createRoutesFromElements, 
+  Route, 
+  RouterProvider 
+      } from "react-router-dom";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import "./server"; 
-import VansPage, {loader as Vansloader, loader} from './van/vans_page';
+import 
+VansPage, 
+{loader as Vansloader} from './van/vans_page';
 import VansDetail from './van/vans_detail';
 import Layout from './component/Layout';
 import Dashboard from './pages/Hosts/DashBoard';
@@ -17,7 +24,7 @@ import HostVanInfo from './pages/Hosts/HostVanInfo';
 import HostVanPricing from './pages/Hosts/HostVanPricing';
 import HostVanPhotos from './pages/Hosts/HostVanPhotos';
 import NotFound_page from './van/NotFound_page';
-import Error from './component/Error';
+import Error from './component/Error';                                                          
 
 const router = createBrowserRouter(createRoutesFromElements (
   <Route path="/" element={<Layout />}>
