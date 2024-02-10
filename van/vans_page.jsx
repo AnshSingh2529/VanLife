@@ -1,41 +1,41 @@
 import React from "react";
-import { useEffect, useState } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useLoaderData, useSearchParams } from "react-router-dom";
 import getVans from './api';
-export default function VansPage (){
-    const [vans , setVans] = useState([]);
-    const [searchParams,setSearchParams] = useSearchParams();
-    const [laoding, setLoading] = useState(false);
-    const [error, setError] = React.useState(null)
 
+export function loader(){
+    return getVans();
+}
+export default function VansPage (){
+    const vans = useLoaderData();   
+    const [searchParams,setSearchParams] = useSearchParams();
     const typeFilter = searchParams.get("type");
 
     const displayVans = typeFilter
     ? vans.filter(van => van.type === typeFilter) 
     : vans ;
 
-    useEffect(() => {
-        async function loadVans() {
-            setLoading(true)
-            try {
-                const data = await getVans()
-                setVans(data)
-            } catch (err) {
-                setError(err)
-            } finally {
-                setLoading(false)
-            }
-        }
+    // useEffect(() => {
+    //     async function loadVans() {
+    //         setLoading(true)
+    //         try {
+    //             const data = await getVans()
+    //             setVans(data)
+    //         } catch (err) {
+    //             setError(err)
+    //         } finally {
+    //             setLoading(false)
+    //         }
+    //     }
 
-        loadVans()
-    }, [])
+    //     loadVans()
+    // }, [])
 
     const vanElements = displayVans.map( van => (
         <div key={van.id} className="van-tile">
             <Link 
 
             to={van.id}   state={ {search : `?${searchParams.toString()}`, type: typeFilter} }
-            aria-label={`view detail for ${van.name} price at ${van.price} per day`
+            aria-label={`view detail for ${van.name} price at ${van.price} per day` 
 
             }>
                 <img src={van.imageUrl} alt={`Image of ${van.name}`}/>
@@ -69,14 +69,7 @@ export default function VansPage (){
         })
     }
 
-    if(laoding){
-        return <div className="loader"></div>
-                
-    }
-
-    if (error) {
-        return <h1>There was an error: {error.message}</h1>
-    }
+   
 
     return (
         <div className="van-list-container">
