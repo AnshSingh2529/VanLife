@@ -1,36 +1,16 @@
 import React, { useState,useEffect } from "react"
 
-import { Link } from "react-router-dom"
+import { Link, useLoaderData } from "react-router-dom"
 import getHostvans from '/van/api';
+import { getVanDetails } from "../../van/api";
+
+export function loader () {
+    return getVanDetails();
+}
 
 export default function HostVans() {
-    const [vans, setHostVans] = React.useState([]);
-    const [loader, setloader] = useState(false);
-    const [error, setError] = useState(null);
+    const Vans = useLoaderData();
 
-
-    useEffect(() => {
-        setloader(true);
-      async function HostLoader (){
-       try {
-        const data = await getHostvans();
-        setHostVans(data);
-       } catch (err) {
-        setError(err)
-       } finally {
-        setloader(false);
-       }
-      }
-
-      HostLoader();
-    }, [])
-
-    if(loader){
-        return <div className="loader"></div>
-    }
-    if(error) {
-        return <h1>Sorry! {error.message}</h1>
-    }
 
     const hostVansEls = vans.map(van => (
         <Link

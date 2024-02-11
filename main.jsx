@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import {
   createBrowserRouter,
   createRoutesFromElements, 
+  redirect, 
   Route, 
   RouterProvider 
       } from "react-router-dom";
@@ -12,7 +13,7 @@ import "./server";
 import 
 VansPage, 
 {loader as Vansloader} from './van/vans_page';
-import VansDetail from './van/vans_detail';
+import VansDetail,{loader as getVanLoader} from './van/vans_detail';
 import Layout from './component/Layout';
 import Dashboard from './pages/Hosts/DashBoard';
 import Reviews from './pages/Hosts/Reviews';
@@ -39,18 +40,102 @@ const router = createBrowserRouter(createRoutesFromElements (
   loader={Vansloader} 
   errorElement={<Error />}
   />
-  <Route path="vans/:id" element={<VansDetail />} />          //here "/:id" means something going to replace it some id,name,or anything.
+  <Route
+  path="vans/:id" 
+  element={<VansDetail />}
+  loader={getVanLoader}
+   />          //here "/:id" means something going to replace it some id,name,or anything.
 
   <Route path='host' element={<HostLayout />}>
 
-    <Route index element={<Dashboard />}/>
-    <Route path='income' element={<Income />}/>
-    <Route path='reviews'  element={<Reviews />}/>
-    <Route path='vans'  element={<Vans />}/>
-    <Route path='vans/:id'  element={<HostVansDetail />}>
-      <Route index element={<HostVanInfo />} />
-      <Route path='pricing' element={<HostVanPricing/>} />
-      <Route path='photos' element={<HostVanPhotos />} />
+    <Route 
+    index 
+    element={<Dashboard />}
+    loader={ async () => {
+      const isLoggedIn = false;
+      if(!isLoggedIn) {
+        throw redirect ("/login")
+      }
+      return <Outlet />
+    }}
+    />
+    <Route 
+    path='income' 
+    element={<Income />}
+    loader={ async () => {
+      const isLoggedIn = false;
+      if(!isLoggedIn) {
+        throw redirect ("/login")
+      }
+      return <Outlet />
+    }}
+    />
+    <Route 
+    path='reviews' 
+     element={<Reviews />}
+     loader={ async () => {
+      const isLoggedIn = false;
+      if(!isLoggedIn) {
+        throw redirect ("/login")
+      }
+      return <Outlet />
+     }}
+     />
+    <Route 
+    path='vans' 
+     element={<Vans />}
+     loader={ async () => {
+      const isLoggedIn = false;
+      if(!isLoggedIn) {
+        throw redirect ("/login")
+      }
+      return <Outlet />
+     }}
+     />
+    <Route 
+    path='vans/:id'  
+    element={<HostVansDetail />}
+    loader={ async () => {
+      const isLoggedIn = false;
+      if(!isLoggedIn) {
+        throw redirect ("/login")
+      }
+      return <Outlet />
+    }}
+    >
+      <Route 
+      index e
+      lement={<HostVanInfo />} 
+      loader={ async () => {
+        const isLoggedIn = false;
+        if(!isLoggedIn) {
+          throw redirect ("/login")
+        }
+        return <Outlet />
+      }}
+      />
+      <Route 
+      path='pricing'
+       element={<HostVanPricing/>} 
+       loader={ async () => {
+        const isLoggedIn = false;
+        if(!isLoggedIn) {
+          throw redirect ("/login")
+        }
+        return <Outlet />
+       }}
+       />
+      <Route 
+      path='photos' 
+      element={<HostVanPhotos />} 
+      loader={ async () => {
+        const isLoggedIn = false;
+        if(!isLoggedIn) {
+          throw redirect ("/login")
+        }
+        return <Outlet />
+      }}
+      />
     </Route>
   </Route>
   <Route path='*' element={<NotFound_page />} />
