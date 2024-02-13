@@ -531,3 +531,8 @@ i[class*='van-type-'] {
     color: white;
     font-family: "Inter", sans-serif;
 }
+
+.red {
+    color: #cc0000;
+    font-family: monospace;
+}
