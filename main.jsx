@@ -26,7 +26,7 @@ import HostVanPricing from './pages/Hosts/HostVanPricing';
 import HostVanPhotos from './pages/Hosts/HostVanPhotos';
 import NotFound_page from './van/NotFound_page';
 import Error from './component/Error';                                                          
-import Login,{LoginLoader as Logloader} from './pages/Login';
+import Login,{LoginLoader as Logloader, action as LoginAction} from './pages/Login';
 import { requireAuth } from './van/utils';
 
 const router = createBrowserRouter(createRoutesFromElements (
@@ -39,6 +39,7 @@ const router = createBrowserRouter(createRoutesFromElements (
   path="login" 
   element={<Login />} 
   loader={Logloader}
+  action={LoginAction}
   />
   
   <Route 
