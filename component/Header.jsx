@@ -1,7 +1,10 @@
 import React from "react";
 import imageUrl from "/assets/images/avatar-icon.png";
-import { Link,NavLink } from "react-router-dom";
+import { Link,NavLink, redirect } from "react-router-dom";
 
+export function logout(){
+    localStorage.removeItem('loggedin');
+}
 export default function Header (){
     const styling = {
         fontWeight: "bold",
@@ -20,6 +23,7 @@ export default function Header (){
                         src={imageUrl}
                         className="login-icon"
                    /></Link >
+                   <button onClick={logout}>logout</button>
             </nav>
         </header>
     )
