@@ -4,8 +4,8 @@ import getVanDetails from './api';
 import { requireAuth } from "./utils";
 
 
-export async function loader ({params}){
-    await requireAuth();
+export async function loader ({params,request}){
+    await requireAuth(request);
     return getVanDetails(params.id);
 }
 export default function VanDetail() {
