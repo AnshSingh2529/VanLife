@@ -1,11 +1,9 @@
-import React, { useState } from "react";
-
+import React from "react";
 import { 
-    useLoaderData,
     Form, 
-    useNavigate, 
     redirect, 
-    useActionData 
+    useActionData,
+    useNavigation 
 } from "react-router-dom";
 
 import { loginUser } from "../van/api";
@@ -30,31 +28,15 @@ export async function action({ request }) {
         return error.message;
     }
 
-
 }
 
 export default function Login() {
-    const [status, setStatus] = useState("idle")
-    const message = useLoaderData()
-    const navigate = useNavigate()
     const errorMessage = useActionData();
-
-    function handleSubmit(e) {
-        e.preventDefault()
-        setStatus("submitting")
-        setError(null)
-        loginUser(loginFormData)
-            .then(data => {
-               navigate('/host', {replace:true})
-            })
-    }
-
-   
+    const currentNavigation = useNavigation();      //it gives us the object that gives the information about the current navigation status.(whether it is submitting or Laoding.. status) 
 
     return (
         <div className="login-container">
             <h1>Sign in to your account</h1>
-            {message && <h3 className="red">{message}</h3>}
             {errorMessage && <h3 className="red">{errorMessage}</h3>}
 
             <Form 
@@ -74,9 +56,9 @@ export default function Login() {
                     placeholder="Password"
                 />
                 <button
-                    disabled={status === "submitting"}
+                    disabled={currentNavigation.state === "submitting"}
                 >
-                    {status === "submitting"
+                    {currentNavigation.state === "submitting"
                         ? "Logging in..."
                         : "Log in"
                     }
