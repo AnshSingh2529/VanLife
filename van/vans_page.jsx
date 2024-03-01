@@ -1,11 +1,11 @@
 import React from "react";
-import { Link, useLoaderData, useSearchParams } from "react-router-dom";
+import { Link, defer, useLoaderData, useSearchParams } from "react-router-dom";
 import getVans from './api';
 import { requireAuth } from "./utils";
 
 export async function loader({request}){
     await requireAuth(request)
-    return getVans();
+    return defer(getVans());
 }
 export default function VansPage (){
     const vans = useLoaderData();   

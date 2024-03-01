@@ -10,7 +10,7 @@ export async function loader ({params,request}){
 }
 export default function VanDetail() {
     const location = useLocation()
-    console.log(location)
+    // console.log(location)
     
     const van = useLoaderData();
 
