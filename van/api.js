@@ -1,4 +1,4 @@
-export default async function getVans(id) {
+export async function getVans(id) {
     const url = id ? `/api/vans/${id}` : "/api/vans"
     const res = await fetch(url)
     if (!res.ok) {
@@ -26,14 +26,12 @@ export async function getHostVans(id) {
     return data.vans
 }
 
-
-
 export async function loginUser(creds) {
     const res = await fetch("/api/login",
         { method: "post", body: JSON.stringify(creds) }
     )
-    const data = await res.json();
-    
+    const data = await res.json()
+
     if (!res.ok) {
         throw {
             message: data.message,
