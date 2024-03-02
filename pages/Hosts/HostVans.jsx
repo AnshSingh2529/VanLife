@@ -1,18 +1,25 @@
-import React, { useState,useEffect } from "react"
+import React,{Suspense} from "react"
 import { requireAuth } from "../../van/utils";
-import { Link, useLoaderData } from "react-router-dom"
+import { 
+    Link, 
+    useLoaderData,
+    defer,
+    Await
+} from "react-router-dom"
 import getHostvans from '../../van/api';
+import { Loading } from "../../van/Loading";
+
 
 export async function loader ({request}) {
     await requireAuth(request);
-    return getHostvans();
+    return defer({hostvan: getHostvans()})
 }
 
 export default function HostVans() {
-    const vans = useLoaderData();
+    let vansLoader = useLoaderData();
 
-
-    const hostVansEls = vans.map(van => (
+function renderhostvans(hostvan){
+    const hostVansEls = hostvan.map(van => (
         <Link
             to={van.id}
             key={van.id}
@@ -27,16 +34,29 @@ export default function HostVans() {
             </div>
         </Link>
     ))
+            return (
+                <>
+                <div className="host-vans-list">
+                        <section>
+                            {hostVansEls}
+                        </section>
+                </div>
+                </>
+            )
+}
 
     return (
         <section>
             <h1 className="host-vans-title">Your listed vans</h1>
-            <div className="host-vans-list">
-                        <section>
-                            {hostVansEls}
-                        </section>
-                
-            </div>
+    
+            <Suspense fallback={<Loading />}>
+
+            <Await resolve={vansLoader.hostvan}>
+            {renderhostvans}
+            </Await>
+
+            </Suspense>
+            
         </section>
     )
 }

@@ -1,11 +1,12 @@
-import React from "react";
+import React,{Suspense} from "react";
 import { Await, Link, defer, useLoaderData, useSearchParams } from "react-router-dom";
 import getVans from './api';
 import { requireAuth } from "./utils";
+import {Loading} from "./Loading"
 
 export async function loader({request}){
     await requireAuth(request)
-    return defer({vans: await getVans()});
+    return defer({vans: getVans()});
 }
 export default function VansPage (){
     const DataPromsise = useLoaderData();   
@@ -149,9 +150,12 @@ export default function VansPage (){
         <div className="van-list-container">
             <h1>Explore our Vans options</h1>
 
-            <Await resolve={DataPromsise.vans}>
-            {renderVansElement}
-            </Await>
+            <Suspense fallback={<Loading />}>
+                <Await resolve={DataPromsise.vans}>
+                {renderVansElement}
+                </Await>
+            </Suspense>
+            
         </div>
     )
 }
