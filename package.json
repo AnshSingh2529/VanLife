@@ -1,6 +1,8 @@
 {
   "name": "project",
+  "type": "module",
   "dependencies": {
+    "firebase": "^10.8.1",
     "miragejs": "^0.1.48",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -9,7 +11,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-react": "*",
-    "vite": "latest"
+    "vite": "^5.1.4"
   },
   "scripts": {
     "start": "vite",
