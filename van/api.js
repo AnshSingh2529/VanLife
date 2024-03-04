@@ -1,6 +1,6 @@
 //  using firebase/firestore of google to store the data
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore/lite"
+import { getFirestore, collection, getDocs, doc, getDoc } from "firebase/firestore/lite"
 
 const firebaseConfig = {
     apiKey: "AIzaSyApmhDJOoB6dOe_PoJ4VDJwnMcR8UsI3kc",
@@ -30,6 +30,15 @@ export async function getVans(){
 }
 
 
+export async function getVan(id){
+    const docRef = doc(db, "vans", id);
+    const vanSnapshot = await getDoc(docRef);
+    return {
+        ...vanSnapshot.data(),
+        id:vanSnapshot.id
+    }
+    
+}
 
 
 
