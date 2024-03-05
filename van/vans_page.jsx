@@ -8,12 +8,14 @@ import {
 } from "react-router-dom"
 import { getVans } from "./api"
 import {Loading} from './Loading'
+import { requireAuth } from "./utils"
 
-export function loader() {
+export async function loader({request}) {
+   await requireAuth(request);
     return defer({ vans: getVans() })
 }
 
-export default function Vans() {
+export default function Vanspage() {
     const [searchParams, setSearchParams] = useSearchParams()
     const dataPromise = useLoaderData()
 

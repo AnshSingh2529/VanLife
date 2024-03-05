@@ -1,9 +1,9 @@
 import React from "react";
 import imageUrl from "/assets/images/avatar-icon.png";
-import { Link,NavLink, redirect } from "react-router-dom";
+import { Link,NavLink } from "react-router-dom";
 
 export function logout(){
-    localStorage.removeItem('loggedin');
+      localStorage.removeItem('loggedin')
 }
 export default function Header (){
     const styling = {

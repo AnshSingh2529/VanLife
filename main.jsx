@@ -6,19 +6,18 @@ import {
   Route, 
   RouterProvider 
       } from "react-router-dom";
+
 import Home from "./pages/Home";
 import About from "./pages/About";
 import "./server"; 
-import 
-VansPage, 
-{loader as VansPageloader} from './van/vans_page';
+import Vanspage, { loader } from './van/vans_page';
 import VansDetail,{loader as getVanDetailLoader} from './van/vans_detail';
 import Layout from './component/Layout';
 import Dashboard ,{loader as dashboardloader}from './pages/Hosts/DashBoard';
 import Reviews from './pages/Hosts/Reviews';
 import Income from './pages/Hosts/Income';
 import HostLayout from './component/HostLayout';
-import Vans,{loader as HostVansLoader} from './pages/Hosts/HostVans';
+import HostVans,{loader as HostVansLoader} from './pages/Hosts/HostVans';
 import HostVansDetail,{loader as HostVanDetailLoader} from './pages/Hosts/HostVansDetail';
 import HostVanInfo from './pages/Hosts/HostVanInfo';
 import HostVanPricing from './pages/Hosts/HostVanPricing';
@@ -40,9 +39,9 @@ const router = createBrowserRouter(createRoutesFromElements(
     />
     <Route
       path="vans"
-      element={<VansPage />}
+      element={<Vanspage />}
       errorElement={<Error />}
-      loader={VansPageloader}
+      loader={loader}
     />
     <Route 
       path="vans/:id" 
@@ -69,7 +68,7 @@ const router = createBrowserRouter(createRoutesFromElements(
       />
       <Route
         path="vans"
-        element={<Vans />}
+        element={<HostVans />}
         errorElement={<Error />}
         loader={HostVansLoader}
       />

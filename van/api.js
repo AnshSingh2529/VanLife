@@ -1,6 +1,13 @@
 //  using firebase/firestore of google to store the data
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs, doc, getDoc } from "firebase/firestore/lite"
+import { 
+    getFirestore, 
+    collection, 
+    getDocs, 
+    doc, 
+    getDoc, 
+    query, 
+    where } from "firebase/firestore/lite"
 
 const firebaseConfig = {
     apiKey: "AIzaSyApmhDJOoB6dOe_PoJ4VDJwnMcR8UsI3kc",
@@ -25,10 +32,10 @@ export async function getVans(){
         ...doc.data(),
         id: doc.id          //my db unique id's..
     }))
-    console.log(dataArr);
     return dataArr; 
 }
 
+// cloud Firebase
 
 export async function getVan(id){
     const docRef = doc(db, "vans", id);
@@ -41,33 +48,15 @@ export async function getVan(id){
 }
 
 
-
-// export async function getVans(id) {
-//     const url = id ? `/api/vans/${id}` : "/api/vans"
-//     const res = await fetch(url)
-//     if (!res.ok) {
-//         throw {
-//             message: "Failed to fetch vans",
-//             statusText: res.statusText,
-//             status: res.status
-//         }
-//     }
-//     const data = await res.json()
-//     return data.vans
-// }
-
-export async function getHostVans(id) {
-    const url = id ? `/api/host/vans/${id}` : "/api/host/vans"
-    const res = await fetch(url)
-    if (!res.ok) {
-        throw {
-            message: "Failed to fetch vans",
-            statusText: res.statusText,
-            status: res.status
-        }
-    }
-    const data = await res.json()
-    return data.vans
+export async function getHostVans(){
+    const q = query(vansCollectionRef, where("hostId" , "==" , "123"))
+    const querySnapshot = await getDocs(q);
+    const dataArr = querySnapshot.docs.map(doc => ({
+        ...doc.data(),
+        id: doc.id          //my db unique id's..
+    }))
+    console.log(dataArr);
+    return dataArr; 
 }
 
 export async function loginUser(creds) {
