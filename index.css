@@ -30,16 +30,16 @@ body {
     flex-direction: column;
 }
 
-header {
+.header-div {
     height: 110px;
     display: flex;
     align-items: center;
-    padding-block: 10px;
+    justify-content:space-between;
 }
 
-header .site-logo {
+.site-logo {
     color: black;
-    margin-right: auto;
+    margin-left: 0;
     text-transform: uppercase;
     font-weight: 900;
     font-size: 25px;
@@ -125,7 +125,11 @@ footer {
     min-height: 350px;
     color: white;
     padding: 45px 23px;
+
+
 }
+
+
 
 .home-container h1 {
     font-weight: 700;
@@ -161,6 +165,7 @@ footer {
 /*** ABOUT PAGE ***/
 .about-hero-image {
     max-width: 100%;
+    
 }
 
 
@@ -767,4 +772,28 @@ img.graph {
 .host-reviews .review-star {
     color: #ff8c38;
     margin-right: 5px;
+}
+
+
+@media (max-width: 600px) {
+   .main-outlet{
+        height: 600px;
+        width: 600px;
+        margin-top: 40px;
+    }
+
+    .footer-outlet{
+        background-color: #000000;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+        position: fixed;
+        width: 100%;
+        bottom: 0;
+    }
+
+    .header-nav{
+        margin-right: 0;
+        
+    }
 }
