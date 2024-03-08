@@ -26,7 +26,15 @@ import NotFound_page from './van/NotFound_page';
 import Error from './component/Error';                                                          
 import Login,{loader as loginLoader, action as loginAction} from './pages/Login';
 import { requireAuth } from './van/utils';
-import { themeProvider } from './Modes/themeContext';
+
+
+
+
+
+
+
+
+
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout />}>
@@ -100,12 +108,17 @@ const router = createBrowserRouter(createRoutesFromElements(
   </Route>
 ))
 
+
+
+
+
 function App() {
-  return (
-    <RouterProvider router={router} />
+
+  return (      
+          <RouterProvider router={router} />
   )
 }
 
 ReactDOM
   .createRoot(document.getElementById('root'))
-  .render(<themeProvider><App /></themeProvider>);
+  .render(<App />);

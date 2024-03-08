@@ -33,7 +33,7 @@ export default function Header (){
                        <li className="hideonMobile"> <button onClick={logout}><img src={imageUrl01} alt="logout" /></button></li>
                        <li className="hideonWeb"><Sidebar/></li>
                         
-                </ul>
+                </ul>   
                
 
             </nav>
