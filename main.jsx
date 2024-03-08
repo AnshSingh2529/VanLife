@@ -26,6 +26,7 @@ import NotFound_page from './van/NotFound_page';
 import Error from './component/Error';                                                          
 import Login,{loader as loginLoader, action as loginAction} from './pages/Login';
 import { requireAuth } from './van/utils';
+import { themeProvider } from './Modes/themeContext';
 
 const router = createBrowserRouter(createRoutesFromElements(
   <Route path="/" element={<Layout />}>
@@ -107,4 +108,4 @@ function App() {
 
 ReactDOM
   .createRoot(document.getElementById('root'))
-  .render(<App />);
+  .render(<themeProvider><App /></themeProvider>);
